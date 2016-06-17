@@ -5,8 +5,16 @@ RUN git config --global alias.st status \
  && git config --global alias.ci commit \
  && git config --global alias.br branch
 
+RUN apt-get update
+
+# Install Oh My Zsh
+RUN apt-get install -y zsh \
+ && git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh \
+ && cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc \
+ && chsh -s /bin/zsh
+
 WORKDIR /usr/src/app
 
 EXPOSE 3000
 
-CMD [ "/bin/bash" ]
+CMD [ "/bin/zsh" ]
